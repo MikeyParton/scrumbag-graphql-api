@@ -4,34 +4,34 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :all_boards, types[Types::BoardType] do
     description "Get All Boards"
     resolve ->(obj, args, ctx) {
-      Board.all.includes(lists: [:cards])
+      Board.all
     }
   end
 
   field :board, Types::BoardType do
     description "Get a single Board"
-    argument :id, !types.String
+    argument :id, !types.ID
 
     resolve ->(obj, args, ctx) {
-      Board.find_by(id: args[:id]).includes(lists: [:cards])
+      Board.find(args[:id])
     }
   end
 
   field :list, Types::CardType do
     description "Get a single List"
-    argument :id, !types.String
+    argument :id, !types.ID
 
     resolve ->(obj, args, ctx) {
-      List.find_by(id: args[:id])
+      List.find(args[:id])
     }
   end
 
   field :card, Types::CardType do
     description "Get a single Card"
-    argument :id, !types.String
+    argument :id, !types.ID
 
     resolve ->(obj, args, ctx) {
-      Card.find_by(id: args[:id])
+      Card.find(args[:id])
     }
   end
 end
