@@ -2,6 +2,7 @@ Types::ListType = GraphQL::ObjectType.define do
   name "List"
   field :id, !types.ID
   field :name, types.String
+  field :board_id, !types.ID
 
   field :board do
     type Types::BoardType
